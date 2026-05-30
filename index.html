@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Pengeluaran Barang</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --surface2: #f9f8f5;
+  --border: #e8e6e0;
+  --text: #1a1917;
+  --text2: #6b6860;
+  --text3: #a3a099;
+  --accent: #2a5ef5;
+  --accent-light: #eef1fe;
+  --danger: #e53e3e;
+  --danger-light: #fff5f5;
+  --success: #38a169;
+  --success-light: #f0fff4;
+  --warn: #d97706;
+  --warn-light: #fffbeb;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 32px 20px;
+  font-size: 14px;
+}
+
+.container { max-width: 1020px; margin: auto; }
+
+/* Header */
+.header { margin-bottom: 28px; }
+.header h1 { font-size: 26px; font-weight: 700; letter-spacing: -.5px; }
+.header p { color: var(--text2); margin-top: 4px; font-size: 14px; }
+
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+.stat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
+}
+.stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .6px; color: var(--text3); }
+.stat-value { font-size: 24px; font-weight: 700; margin-top: 8px; letter-spacing: -.5px; }
+.stat:nth-child(1) { background: linear-gradient(135deg, #eecac3, #FF9770); }
+.stat:nth-child(1) .stat-value{color:#6f6e6d(127, 122, 122);}
+.stat:nth-child(1) .stat-label{color: rgba(65,44,44,0.8)}
+.stat:nth-child(2) { background: linear-gradient(135deg, #bdcdee, #1d4ed8); }
+.stat:nth-child(2) .stat-value{color:#6f6e6d;}
+.stat:nth-child(2) .stat-label{color: rgba(65,44,44,0.8)}
+.stat:nth-child(3) { background: linear-gradient(135deg, #b9e8d9, #059669); }
+.stat:nth-child(3) .stat-value{color:#6f6e6d;}
+.stat:nth-child(3) .stat-label{color: rgba(65, 41, 41, 0.8)}
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.card-title { font-size: 15px; font-weight: 700; margin-bottom: 18px; }
+
+/* Form */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; }
+.form-group.full { grid-column: 1 / -1; }
+label { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .4px; }
+input, select, textarea {
+  padding: 10px 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--surface2);
+  transition: border-color .15s;
+  outline: none;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--accent); background: #fff; }
+textarea { resize: vertical; min-height: 72px; }
+input[type="file"] { padding: 8px; cursor: pointer; }
+
+.preview-img {
+  display: none;
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.btn { border: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 600; border-radius: var(--radius); padding: 11px 20px; transition: opacity .15s, transform .1s; }
+.btn:hover { opacity: .87; }
+.btn:active { transform: scale(.98); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-danger { background: var(--danger); color: #fff; padding: 7px 14px; font-size: 13px; }
+.btn-row { margin-top: 18px; display: flex; align-items: center; gap: 10px; }
+.save-status { font-size: 12px; color: var(--text3); }
+
+/* Search */
+.search-wrap { margin-bottom: 16px; position: relative; }
+.search-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px; color: var(--text3); }
+#search { padding-left: 36px; width: 100%; }
+
+/* Table */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--text3); padding: 0 12px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+td { padding: 13px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 14px; }
+tr:last-child td { border-bottom: none; }
+tbody tr:hover td { background: var(--surface2); }
+
+.bill-img { width: 52px; height: 52px; object-fit: cover; border-radius: 8px; cursor: pointer; border: 1px solid var(--border); }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.badge-atk { background: var(--accent-light); color: var(--accent); }
+.badge-elektronik { background: #f0e6ff; color: #6b21a8; }
+.badge-konsumsi { background: var(--success-light); color: var(--success); }
+.badge-lainnya { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+
+.empty { text-align: center; padding: 48px 0; color: var(--text3); font-size: 14px; }
+.empty span { display: block; font-size: 36px; margin-bottom: 10px; }
+
+/* Modal */
+.modal {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.75);
+  display: none; justify-content: center; align-items: center;
+  z-index: 1000;
+}
+.modal.open { display: flex; }
+.modal img { max-width: 90vw; max-height: 88vh; border-radius: 16px; }
+
+@media (max-width: 680px) {
+  .form-grid, .stats { grid-template-columns: 1fr; }
+  body { padding: 20px 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>📦 Manajemen Pengeluaran Barang</h1>
+    <p>Catat dan kelola pengeluaran barang dengan mudah</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Total Pengeluaran</div>
+      <div class="stat-value" id="totalRp">Rp 0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Total Transaksi</div>
+      <div class="stat-value" id="totalData">0</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Rata-rata</div>
+      <div class="stat-value" id="rataRp">Rp 0</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Tambah Data</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="nama">Nama Barang</label>
+        <input type="text" id="nama" placeholder="Nama Barang">
+      </div>
+      <div class="form-group">
+        <label for="harga">Harga (Rp)</label>
+        <input type="number" id="harga" placeholder="150000" min="0">
+      </div>
+      <div class="form-group">
+        <label for="kategori">Kategori</label>
+        <select id="kategori">
+          <option>ATK</option>
+          <option>Elektronik</option>
+          <option>Konsumsi</option>
+          <option>Kebutuhan</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tanggal">Tanggal</label>
+        <input type="date" id="tanggal">
+      </div>
+      <div class="form-group full">
+        <label for="ket">Keterangan</label>
+        <textarea id="ket" placeholder="catatan tambahan..."></textarea>
+      </div>
+      <div class="form-group full">
+        <label for="bill">Upload Bill / Struk</label>
+        <input type="file" id="bill" accept="image/*">
+        <img id="preview" class="preview-img" alt="preview">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="tambahData()">💾 Simpan Data</button>
+      <span class="save-status" id="saveStatus"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Daftar Pengeluaran</div>
+    <div class="search-wrap">
+      <input type="text" id="search" placeholder="🔍  Cari nama barang..." oninput="renderTable()">
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tanggal</th>
+            <th>Nama Barang</th>
+            <th>Kategori</th>
+            <th>Harga</th>
+            <th>Keterangan</th>
+            <th>Bill</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal" onclick="this.classList.remove('open')">
+  <img id="modalImg" alt="bill">
+</div>
+
+<script>
+// ─── Storage helpers (file / localStorage fallback) ───────────────────────
+const STORAGE_KEY = 'pengeluaran_v2';
+
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) { return []; }
+}
+
+function saveToStorage(arr) {
+  try {
+    // Store without bill images to save space; images stored separately
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+  } catch(e) {
+    // If quota exceeded (large bill images), store without images
+    try {
+      const lite = arr.map(x => ({ ...x, bill: x.bill ? '__has_image__' : '' }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(lite));
+    } catch(e2) { /* silently fail */ }
+  }
+}
+
+// ─── App state ─────────────────────────────────────────────────────────────
+let data = loadFromStorage();
+let billBase64 = '';
+
+// Init date
+document.getElementById('tanggal').value = new Date().toISOString().split('T')[0];
+
+// ─── Bill preview ──────────────────────────────────────────────────────────
+document.getElementById('bill').addEventListener('change', function() {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    billBase64 = e.target.result;
+    const prev = document.getElementById('preview');
+    prev.src = billBase64;
+    prev.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+// ─── Tambah data ───────────────────────────────────────────────────────────
+function tambahData() {
+  const nama = document.getElementById('nama').value.trim();
+  const harga = document.getElementById('harga').value;
+  const kategori = document.getElementById('kategori').value;
+  const tanggal = document.getElementById('tanggal').value;
+  const ket = document.getElementById('ket').value.trim();
+
+  if (!nama || !harga || Number(harga) <= 0) {
+    alert('Lengkapi nama barang dan harga!');
+    return;
+  }
+
+  data.push({ id: Date.now(), nama, harga: Number(harga), kategori, tanggal, ket, bill: billBase64 });
+  saveToStorage(data);
+
+  // Reset form
+  ['nama','harga','ket'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('bill').value = '';
+  document.getElementById('preview').style.display = 'none';
+  billBase64 = '';
+
+  showStatus('✓ Data berhasil disimpan');
+  renderTable();
+  updateStats();
+}
+
+// ─── Hapus data ────────────────────────────────────────────────────────────
+function hapusData(id) {
+  if (!confirm('Hapus data ini?')) return;
+  data = data.filter(x => x.id !== id);
+  saveToStorage(data);
+  renderTable();
+  updateStats();
+  showStatus('Data dihapus');
+}
+
+// ─── Render table ──────────────────────────────────────────────────────────
+function renderTable() {
+  const keyword = (document.getElementById('search').value || '').toLowerCase();
+  const tbody = document.getElementById('tbody');
+
+  const filtered = data.filter(item => item.nama.toLowerCase().includes(keyword));
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty"><span>📭</span>${keyword ? 'Tidak ditemukan barang "' + keyword + '"' : 'Belum ada data pengeluaran'}</div></td></tr>`;
+    return;
+  }
+
+  const badgeClass = { 'ATK': 'badge-atk', 'Elektronik': 'badge-elektronik', 'Konsumsi': 'badge-konsumsi', 'Lainnya': 'badge-lainnya' };
+
+  tbody.innerHTML = filtered.map(item => `
+    <tr>
+      <td>${formatTanggal(item.tanggal)}</td>
+      <td style="font-weight:600">${item.nama}</td>
+      <td><span class="badge ${badgeClass[item.kategori] || 'badge-lainnya'}">${item.kategori}</span></td>
+      <td style="font-weight:600">Rp ${item.harga.toLocaleString('id-ID')}</td>
+      <td style="color:var(--text2);max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.ket || '-'}</td>
+      <td>${item.bill && item.bill !== '__has_image__' ? `<img src="${item.bill}" class="bill-img" onclick="lihatBill('${item.bill}')" title="Lihat struk">` : '-'}</td>
+      <td><button class="btn btn-danger" onclick="hapusData(${item.id})">Hapus</button></td>
+    </tr>
+  `).join('');
+}
+
+// ─── Update stats ──────────────────────────────────────────────────────────
+function updateStats() {
+  const total = data.reduce((a, b) => a + b.harga, 0);
+  document.getElementById('totalRp').textContent = 'Rp ' + total.toLocaleString('id-ID');
+  document.getElementById('totalData').textContent = data.length;
+  document.getElementById('rataRp').textContent = data.length
+    ? 'Rp ' + Math.round(total / data.length).toLocaleString('id-ID')
+    : 'Rp 0';
+}
+
+// ─── Lihat bill ────────────────────────────────────────────────────────────
+function lihatBill(src) {
+  document.getElementById('modalImg').src = src;
+  document.getElementById('modal').classList.add('open');
+}
+
+// ─── Helpers ───────────────────────────────────────────────────────────────
+function formatTanggal(str) {
+  if (!str) return '-';
+  const [y, m, d] = str.split('-');
+  const bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  return `${d} ${bulan[+m - 1]} ${y}`;
+}
+
+function showStatus(msg) {
+  const el = document.getElementById('saveStatus');
+  el.textContent = msg;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.textContent = '', 3000);
+}
+
+// ─── Init ──────────────────────────────────────────────────────────────────
+renderTable();
+updateStats();
+</script>
+</body>
+</html>
