@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Track IN - Dashboard</title>
+
+    <link rel="stylesheet" href="dashboard.css">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <div class="brand-mobile">
+                Track IN
+            </div>
+
+            <nav class="main-navigation">
+
+                <a
+                    href="#"
+                    class="nav-item active"
+                    data-page="dashboard"
+                >
+                    Dasbor
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-item"
+                    data-page="akun"
+                >
+                    Akun
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-item"
+                    data-page="catatan"
+                >
+                    Catatan
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-item"
+                    data-page="inventaris"
+                >
+                    Inventaris
+                </a>
+
+                <a
+                    href="#"
+                    class="nav-item"
+                    data-page="keuangan"
+                >
+                    Keuangan
+                </a>
+
+            </nav>
+
+        </div>
+
+
+        <div class="topbar-right">
+
+            <button
+                class="top-note-button"
+                id="topNoteButton"
+            >
+                + Catatan
+            </button>
+
+
+            <span class="username">
+                yusuf
+            </span>
+
+
+            <div class="user-avatar">
+
+                <img
+                    src="https://i.pravatar.cc/100?img=12"
+                    alt="User"
+                >
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP CONTROL
+        ================================================== -->
+
+        <section class="dashboard-controls">
+
+
+            <!-- CASH -->
+
+            <div class="cash-card">
+
+                <span class="cash-label">
+                    Tunai
+                </span>
+
+                <strong id="cashValue">
+                    Rp. 1.000.000
+                </strong>
+
+            </div>
+
+
+
+            <!-- DATE -->
+
+            <div class="date-navigation">
+
+                <button
+                    class="date-arrow"
+                    id="previousDate"
+                >
+                    <
+                </button>
+
+
+                <div class="date-display">
+
+                    <span id="dateText">
+                        17 Agustus 2026
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="date-arrow"
+                    id="nextDate"
+                >
+                    >
+                </button>
+
+            </div>
+
+
+
+            <!-- ADD CARD -->
+
+            <button
+                class="add-card-button"
+                id="openCardModal"
+            >
+
+                <span class="plus">
+                    +
+                </span>
+
+                Tambah Card
+
+            </button>
+
+        </section>
+
+
+
+        <!-- =================================================
+             QUICK ACTION
+        ================================================== -->
+
+        <section class="quick-actions">
+
+
+            <button
+                class="quick-button"
+                data-action="barang"
+            >
+
+                <span class="quick-icon">
+                    ◉
+                </span>
+
+                Barang
+
+            </button>
+
+
+            <button
+                class="quick-button"
+                data-action="pengeluaran"
+            >
+
+                <span class="quick-icon">
+                    ▣
+                </span>
+
+                Pengeluaran
+
+            </button>
+
+
+            <button
+                class="quick-button"
+                data-action="catatan"
+            >
+
+                <span class="quick-icon">
+                    ↗
+                </span>
+
+                Catatan
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAIN CARDS
+        ================================================== -->
+
+        <section class="main-cards">
+
+
+            <!-- =============================================
+                 SALDO
+            ============================================== -->
+
+            <article class="dashboard-card balance-card">
+
+                <div class="card-title">
+
+                    <h3>
+                        Status Ringkasan Saldo
+                    </h3>
+
+                </div>
+
+
+                <div class="balance-gauges">
+
+
+                    <!-- SALDO -->
+
+                    <div class="gauge">
+
+                        <div class="gauge-circle">
+
+                            <div class="gauge-scale">
+
+                                <span class="red"></span>
+                                <span class="orange"></span>
+                                <span class="green"></span>
+
+                            </div>
+
+                            <div class="gauge-needle"></div>
+
+                            <div class="gauge-center"></div>
+
+                        </div>
+
+                        <div class="gauge-icon">
+                            ▣
+                        </div>
+
+                        <span class="gauge-name">
+                            SALDO
+                        </span>
+
+                        <strong>
+                            0
+                        </strong>
+
+                        <small>
+                            Rp
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- ARUS KAS -->
+
+                    <div class="gauge">
+
+                        <div class="gauge-circle">
+
+                            <div class="gauge-scale">
+
+                                <span class="red"></span>
+                                <span class="orange"></span>
+                                <span class="green"></span>
+
+                            </div>
+
+                            <div class="gauge-needle"></div>
+
+                            <div class="gauge-center"></div>
+
+                        </div>
+
+                        <div class="gauge-icon green-icon">
+                            ↕
+                        </div>
+
+                        <span class="gauge-name">
+                            ARUS KAS
+                        </span>
+
+                        <strong>
+                            0
+                        </strong>
+
+                        <small>
+                            Rp
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- PENGELUARAN -->
+
+                    <div class="gauge">
+
+                        <div class="gauge-circle">
+
+                            <div class="gauge-scale">
+
+                                <span class="red"></span>
+                                <span class="orange"></span>
+                                <span class="green"></span>
+
+                            </div>
+
+                            <div class="gauge-needle"></div>
+
+                            <div class="gauge-center"></div>
+
+                        </div>
+
+                        <div class="gauge-icon purple-icon">
+                            ▥
+                        </div>
+
+                        <span class="gauge-name">
+                            PENGELUARAN
+                        </span>
+
+                        <strong>
+                            0
+                        </strong>
+
+                        <small>
+                            Rp
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="balance-footer">
+
+                    <span>
+                        Saldo: <b>0</b>
+                    </span>
+
+                    <span>
+                        Anggaran Kos: <b>0</b>
+                    </span>
+
+                    <span>
+                        Proyek Lainnya: <b>0</b>
+                    </span>
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =============================================
+                 TREND
+            ============================================== -->
+
+            <article class="dashboard-card trend-card">
+
+                <div class="card-title trend-title">
+
+                    <h3>
+                        Tren Saldo & Kebutuhan
+                    </h3>
+
+                    <select id="chartPeriod">
+
+                        <option>
+                            1 - 31 Mei 2025
+                        </option>
+
+                        <option>
+                            1 - 30 Juni 2025
+                        </option>
+
+                        <option>
+                            1 - 31 Juli 2025
+                        </option>
+
+                        <option>
+                            1 - 31 Agustus 2026
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="chart-container">
+
+                    <div class="chart-labels">
+
+                        <span>
+                            Rp 100rb
+                        </span>
+
+                        <span>
+                            Rp 50rb
+                        </span>
+
+                        <span>
+                            Rp 0
+                        </span>
+
+                        <span>
+                            -Rp 50rb
+                        </span>
+
+                        <span>
+                            -Rp 100rb
+                        </span>
+
+                    </div>
+
+
+                    <div class="chart-area">
+
+                        <div class="grid-line line-1"></div>
+                        <div class="grid-line line-2"></div>
+                        <div class="grid-line line-3"></div>
+                        <div class="grid-line line-4"></div>
+                        <div class="grid-line line-5"></div>
+
+
+                        <svg
+                            class="balance-chart"
+                            viewBox="0 0 600 180"
+                            preserveAspectRatio="none"
+                        >
+
+                            <polyline
+                                points="0,90 120,90 240,90 360,90 480,90 600,90"
+                                fill="none"
+                                stroke="#5146ff"
+                                stroke-width="3"
+                            />
+
+                            <circle cx="0" cy="90" r="4"></circle>
+                            <circle cx="120" cy="90" r="4"></circle>
+                            <circle cx="240" cy="90" r="4"></circle>
+                            <circle cx="360" cy="90" r="4"></circle>
+                            <circle cx="480" cy="90" r="4"></circle>
+                            <circle cx="600" cy="90" r="4"></circle>
+
+                        </svg>
+
+
+                        <div class="chart-dates">
+
+                            <span>
+                                1 Mei
+                            </span>
+
+                            <span>
+                                8 Mei
+                            </span>
+
+                            <span>
+                                15 Mei
+                            </span>
+
+                            <span>
+                                22 Mei
+                            </span>
+
+                            <span>
+                                31 Mei
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-legend">
+
+                    <span class="legend-dot"></span>
+
+                    Saldo Aktual
+
+                </div>
+
+            </article>
+
+
+
+            <!-- =============================================
+                 STRUCTURE
+            ============================================== -->
+
+            <article class="dashboard-card structure-card">
+
+                <div class="card-title">
+
+                    <h3>
+                        Struktur Pengeluaran
+                    </h3>
+
+                    <div class="card-tools">
+
+                        <button>
+                            ⊞
+                        </button>
+
+                        <button>
+                            ♙
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="structure-content">
+
+                    <div class="structure-icon">
+                        ♧
+                    </div>
+
+                    <p>
+                        Tidak ada data pada rentang waktu yang dipilih.
+                    </p>
+
+                    <button
+                        class="small-green-button"
+                        id="firstExpenseButton"
+                    >
+                        + Tambah Data Pertama Anda
+                    </button>
+
+                </div>
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             WIDGET TITLE
+        ================================================== -->
+
+        <div class="widget-header">
+
+            <h2>
+                Widget Tambahan
+            </h2>
+
+            <button
+                class="widget-plus"
+                id="openWidgetModal"
+            >
+                +
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             WIDGET AREA
+        ================================================== -->
+
+        <section class="widgets-grid">
+
+
+            <!-- =============================================
+                 LEFT COLUMN
+            ============================================== -->
+
+            <div class="widget-column left-widget-column">
+
+
+                <!-- TAGIHAN -->
+
+                <article
+                    class="widget-card bill-card"
+                    data-widget="tagihan"
+                >
+
+                    <div class="widget-title-row">
+
+                        <div class="widget-title">
+
+                            <span class="widget-round-icon yellow">
+                                ♧
+                            </span>
+
+                            <h3>
+                                Tagihan Terdekat
+                            </h3>
+
+                        </div>
+
+                        <span class="days-badge">
+                            2 hari lagi
+                        </span>
+
+                    </div>
+
+
+                    <div class="bill-content">
+
+                        <div>
+
+                            <strong>
+                                Kost September
+                            </strong>
+
+                            <small>
+                                Jatuh tempo: 5 September 2026
+                            </small>
+
+                        </div>
+
+                        <strong class="bill-price">
+                            Rp500.000
+                        </strong>
+
+                    </div>
+
+
+                    <button
+                        class="detail-link"
+                        data-message="Detail tagihan Kost September"
+                    >
+                        Lihat Detail
+                    </button>
+
+                </article>
+
+
+
+                <!-- INVENTARIS -->
+
+                <article
+                    class="widget-card inventory-card"
+                    data-widget="inventaris"
+                >
+
+                    <div class="widget-title-row">
+
+                        <div class="widget-title">
+
+                            <span class="widget-round-icon cyan">
+                                ◈
+                            </span>
+
+                            <h3>
+                                Inventaris Terbaru
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="inventory-list"
+                        id="inventoryList"
+                    >
+
+                    </div>
+
+
+                    <button
+                        class="detail-link"
+                        id="inventoryLink"
+                    >
+                        Lihat Inventaris →
+                    </button>
+
+                </article>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 RIGHT COLUMN
+            ============================================== -->
+
+            <div class="widget-column right-widget-column">
+
+
+                <!-- AKTIVITAS -->
+
+                <article
+                    class="widget-card activity-card"
+                    data-widget="aktivitas"
+                >
+
+                    <div class="widget-title-row">
+
+                        <div class="widget-title">
+
+                            <span class="widget-round-icon cyan">
+                                ◉
+                            </span>
+
+                            <h3>
+                                Aktivitas Terbaru
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="activity-list"
+                        id="activityList"
+                    >
+
+                    </div>
+
+
+                    <button
+                        class="detail-link"
+                        id="activityLink"
+                    >
+                        Lihat Semua →
+                    </button>
+
+                </article>
+
+
+
+                <!-- BOTTOM RIGHT -->
+
+                <div class="bottom-widgets">
+
+
+                    <!-- PENGELUARAN -->
+
+                    <article
+                        class="widget-card expense-card"
+                        data-widget="pengeluaran"
+                    >
+
+                        <div class="expense-icon">
+                            ▣
+                        </div>
+
+                        <span class="expense-title">
+                            Pengeluaran
+                        </span>
+
+                        <strong class="expense-value">
+                            Rp850.000
+                        </strong>
+
+                        <small>
+                            Periode: Agustus 2026
+                        </small>
+
+                        <span class="plan-badge">
+                            ✓ Sesuai Rencana
+                        </span>
+
+                    </article>
+
+
+
+                    <!-- KATEGORI -->
+
+                    <article
+                        class="widget-card category-card"
+                        data-widget="kategori"
+                    >
+
+                        <span class="category-title">
+                            Per Kategori
+                        </span>
+
+
+                        <div class="category-item">
+
+                            <div>
+
+                                <span>
+                                    Kost
+                                </span>
+
+                                <strong>
+                                    Rp500.000
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+                                <span
+                                    style="width:100%"
+                                    class="purple-progress"
+                                ></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="category-item">
+
+                            <div>
+
+                                <span>
+                                    WiFi
+                                </span>
+
+                                <strong>
+                                    Rp150.000
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+                                <span
+                                    style="width:65%"
+                                    class="cyan-progress"
+                                ></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="category-item">
+
+                            <div>
+
+                                <span>
+                                    Listrik
+                                </span>
+
+                                <strong>
+                                    Rp100.000
+                                </strong>
+
+                            </div>
+
+                            <div class="progress">
+                                <span
+                                    style="width:50%"
+                                    class="yellow-progress"
+                                ></span>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ==============================
+     MODAL TAMBAH CARD
+================================ -->
+
+<div id="cardModal" class="card-modal-overlay">
+
+    <div class="card-modal">
+
+        <!-- HEADER -->
+        <div class="card-modal-header">
+
+            <div class="card-modal-title">
+
+                <span class="card-plus-icon">+</span>
+
+                <span>Tambah Card</span>
+
+            </div>
+
+            <button
+                class="card-modal-close"
+                id="closeCardModal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- CONTENT -->
+        <div class="card-modal-body">
+
+
+            <!-- TAGIHAN -->
+            <div
+                class="dashboard-card-option active"
+                data-card="tagihan"
+            >
+
+                <div class="card-option-check">
+                    <input
+                        type="checkbox"
+                        id="cardTagihan"
+                        checked
+                    >
+
+                    <span class="fake-checkbox">✓</span>
+                </div>
+
+
+                <div class="card-option-icon tagihan-icon">
+                    ♧
+                </div>
+
+
+                <div class="card-option-text">
+
+                    <div class="card-option-name">
+                        Tagihan Terdekat
+                    </div>
+
+                    <div class="card-option-desc">
+                        Pantau pembayaran kost dan iuran sebelum jatuh tempo
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- INVENTARIS -->
+            <div
+                class="dashboard-card-option active"
+                data-card="inventaris"
+            >
+
+                <div class="card-option-check">
+
+                    <input
+                        type="checkbox"
+                        id="cardInventaris"
+                        checked
+                    >
+
+                    <span class="fake-checkbox">✓</span>
+
+                </div>
+
+
+                <div class="card-option-icon inventaris-icon">
+                    ◈
+                </div>
+
+
+                <div class="card-option-text">
+
+                    <div class="card-option-name">
+                        Inventaris Terbaru
+                    </div>
+
+                    <div class="card-option-desc">
+                        Daftar item bersama pribadi yang baru ditambahkan
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AKTIVITAS -->
+            <div
+                class="dashboard-card-option active"
+                data-card="aktivitas"
+            >
+
+                <div class="card-option-check">
+
+                    <input
+                        type="checkbox"
+                        id="cardAktivitas"
+                        checked
+                    >
+
+                    <span class="fake-checkbox">✓</span>
+
+                </div>
+
+
+                <div class="card-option-icon aktivitas-icon">
+                    ♧
+                </div>
+
+
+                <div class="card-option-text">
+
+                    <div class="card-option-name">
+                        Aktivitas Terbaru
+                    </div>
+
+                    <div class="card-option-desc">
+                        Riwayat log perubahan dan kontribusi para penghuni kost
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PENGELUARAN -->
+            <div
+                class="dashboard-card-option"
+                data-card="pengeluaran"
+            >
+
+                <div class="card-option-check">
+
+                    <input
+                        type="checkbox"
+                        id="cardPengeluaran"
+                    >
+
+                    <span class="fake-checkbox">✓</span>
+
+                </div>
+
+
+                <div class="card-option-icon pengeluaran-icon">
+                    ▣
+                </div>
+
+
+                <div class="card-option-text">
+
+                    <div class="card-option-name">
+                        Pengeluaran Bulan Ini
+                    </div>
+
+                    <div class="card-option-desc">
+                        Total akumulasi anggaran belanja bulan berjalan
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- KATEGORI -->
+            <div
+                class="dashboard-card-option"
+                data-card="kategori"
+            >
+
+                <div class="card-option-check">
+
+                    <input
+                        type="checkbox"
+                        id="cardKategori"
+                    >
+
+                    <span class="fake-checkbox">✓</span>
+
+                </div>
+
+
+                <div class="card-option-icon kategori-icon">
+                    ◷
+                </div>
+
+
+                <div class="card-option-text">
+
+                    <div class="card-option-name">
+                        Pengeluaran per Kategori
+                    </div>
+
+                    <div class="card-option-desc">
+                        Visualisasi diagram pembagian kategori pembiayaan kost
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="card-modal-footer">
+
+            <button
+                type="button"
+                class="card-btn-cancel"
+                id="cancelCardModal"
+            >
+                Batal
+            </button>
+
+            <button
+                type="button"
+                class="card-btn-save"
+                id="saveCardModal"
+            >
+                Simpan Card
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="dashboard.js"></script>
+
+</body>
+
+</html>
