@@ -72,14 +72,11 @@ const activityData = [
 const inventoryList =
     document.getElementById("inventoryList");
 
-
 const activityList =
     document.getElementById("activityList");
 
-
 const toast =
     document.getElementById("toast");
-
 
 const cardModal =
     document.getElementById("cardModal");
@@ -90,6 +87,10 @@ const cardModal =
 ============================================================ */
 
 function renderInventory() {
+
+    if (!inventoryList) {
+        return;
+    }
 
     inventoryList.innerHTML = "";
 
@@ -136,6 +137,10 @@ function renderInventory() {
 ============================================================ */
 
 function renderActivity() {
+
+    if (!activityList) {
+        return;
+    }
 
     activityList.innerHTML = "";
 
@@ -195,6 +200,10 @@ let toastTimer;
 
 
 function showToast(message) {
+
+    if (!toast) {
+        return;
+    }
 
     clearTimeout(toastTimer);
 
@@ -341,6 +350,11 @@ const monthNames = [
 
 function updateDate() {
 
+    if (!dateText) {
+        return;
+    }
+
+
     const day =
         currentDate.getDate();
 
@@ -361,11 +375,15 @@ function updateDate() {
 }
 
 
-document
-    .getElementById(
+const previousDate =
+    document.getElementById(
         "previousDate"
-    )
-    .addEventListener(
+    );
+
+
+if (previousDate) {
+
+    previousDate.addEventListener(
         "click",
         () => {
 
@@ -379,12 +397,18 @@ document
         }
     );
 
+}
 
-document
-    .getElementById(
+
+const nextDate =
+    document.getElementById(
         "nextDate"
-    )
-    .addEventListener(
+    );
+
+
+if (nextDate) {
+
+    nextDate.addEventListener(
         "click",
         () => {
 
@@ -397,6 +421,8 @@ document
 
         }
     );
+
+}
 
 
 /* ============================================================
@@ -457,11 +483,15 @@ document
    TOP CATATAN
 ============================================================ */
 
-document
-    .getElementById(
+const topNoteButton =
+    document.getElementById(
         "topNoteButton"
-    )
-    .addEventListener(
+    );
+
+
+if (topNoteButton) {
+
+    topNoteButton.addEventListener(
         "click",
         () => {
 
@@ -472,115 +502,289 @@ document
         }
     );
 
+}
+
 
 /* ============================================================
    CARD MODAL
 ============================================================ */
 
+
+/* ------------------------------------------------------------
+   OPEN MODAL
+------------------------------------------------------------ */
+
 function openCardModal() {
 
-    cardModal.classList.remove(
-        "hidden"
+    if (!cardModal) {
+        return;
+    }
+
+
+    cardModal.classList.add(
+        "show"
     );
 
 }
 
+
+/* ------------------------------------------------------------
+   CLOSE MODAL
+------------------------------------------------------------ */
 
 function closeCardModal() {
 
-    cardModal.classList.add(
-        "hidden"
+    if (!cardModal) {
+        return;
+    }
+
+
+    cardModal.classList.remove(
+        "show"
     );
 
 }
 
 
-document
-    .getElementById(
+/* ------------------------------------------------------------
+   BUTTON TAMBAH CARD
+------------------------------------------------------------ */
+
+const openCardButton =
+    document.getElementById(
         "openCardModal"
-    )
-    .addEventListener(
+    );
+
+
+if (openCardButton) {
+
+    openCardButton.addEventListener(
         "click",
         openCardModal
     );
 
+}
 
-document
-    .getElementById(
+
+/* ------------------------------------------------------------
+   BUTTON PLUS WIDGET
+------------------------------------------------------------ */
+
+const openWidgetButton =
+    document.getElementById(
         "openWidgetModal"
-    )
-    .addEventListener(
+    );
+
+
+if (openWidgetButton) {
+
+    openWidgetButton.addEventListener(
         "click",
         openCardModal
     );
 
+}
 
-document
-    .getElementById(
+
+/* ------------------------------------------------------------
+   BUTTON X
+------------------------------------------------------------ */
+
+const closeCardButton =
+    document.getElementById(
         "closeCardModal"
-    )
-    .addEventListener(
+    );
+
+
+if (closeCardButton) {
+
+    closeCardButton.addEventListener(
         "click",
         closeCardModal
     );
 
+}
 
-document
-    .getElementById(
+
+/* ------------------------------------------------------------
+   BUTTON BATAL
+------------------------------------------------------------ */
+
+const cancelCardButton =
+    document.getElementById(
         "cancelCardModal"
-    )
-    .addEventListener(
+    );
+
+
+if (cancelCardButton) {
+
+    cancelCardButton.addEventListener(
         "click",
         closeCardModal
     );
 
+}
 
-cardModal.addEventListener(
-    "click",
-    event => {
 
-        if (
-            event.target ===
-            cardModal
-        ) {
+/* ------------------------------------------------------------
+   KLIK AREA LUAR MODAL
+------------------------------------------------------------ */
 
-            closeCardModal();
+if (cardModal) {
+
+    cardModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                cardModal
+            ) {
+
+                closeCardModal();
+
+            }
 
         }
+    );
 
-    }
-);
+}
 
 
 /* ============================================================
-   SAVE WIDGET
+   CARD OPTION
 ============================================================ */
 
-document
-    .getElementById(
+const cardOptions =
+    document.querySelectorAll(
+        ".dashboard-card-option"
+    );
+
+
+cardOptions.forEach(option => {
+
+    const checkbox =
+        option.querySelector(
+            "input[type='checkbox']"
+        );
+
+
+    if (!checkbox) {
+        return;
+    }
+
+
+    option.addEventListener(
+        "click",
+        event => {
+
+            /*
+             * Jika klik bagian card,
+             * tetapi bukan checkbox,
+             * ubah checkbox secara manual.
+             */
+
+            if (
+                event.target !== checkbox
+            ) {
+
+                checkbox.checked =
+                    !checkbox.checked;
+
+            }
+
+
+            updateCardOption(
+                option,
+                checkbox
+            );
+
+        }
+    );
+
+
+    checkbox.addEventListener(
+        "change",
+        () => {
+
+            updateCardOption(
+                option,
+                checkbox
+            );
+
+        }
+    );
+
+});
+
+
+/* ------------------------------------------------------------
+   UPDATE TAMPILAN PILIHAN CARD
+------------------------------------------------------------ */
+
+function updateCardOption(
+    option,
+    checkbox
+) {
+
+    if (
+        checkbox.checked
+    ) {
+
+        option.classList.add(
+            "active"
+        );
+
+    }
+
+    else {
+
+        option.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   SAVE CARD
+============================================================ */
+
+const saveCardButton =
+    document.getElementById(
         "saveCardModal"
-    )
-    .addEventListener(
+    );
+
+
+if (saveCardButton) {
+
+    saveCardButton.addEventListener(
         "click",
         () => {
 
-            const checkboxes =
-                document.querySelectorAll(
-                    "[data-widget-toggle]"
-                );
+            cardOptions.forEach(
+                option => {
+
+                    const checkbox =
+                        option.querySelector(
+                            "input[type='checkbox']"
+                        );
 
 
-            checkboxes.forEach(
-                checkbox => {
+                    if (!checkbox) {
+                        return;
+                    }
 
-                    const widgetName =
-                        checkbox.dataset
-                            .widgetToggle;
+
+                    const cardName =
+                        option.dataset.card;
 
 
                     const widget =
                         document.querySelector(
-                            `[data-widget="${widgetName}"]`
+                            `[data-widget="${cardName}"]`
                         );
 
 
@@ -619,16 +823,22 @@ document
         }
     );
 
+}
+
 
 /* ============================================================
    INVENTORY BUTTON
 ============================================================ */
 
-document
-    .getElementById(
+const inventoryLink =
+    document.getElementById(
         "inventoryLink"
-    )
-    .addEventListener(
+    );
+
+
+if (inventoryLink) {
+
+    inventoryLink.addEventListener(
         "click",
         () => {
 
@@ -639,16 +849,22 @@ document
         }
     );
 
+}
+
 
 /* ============================================================
    ACTIVITY BUTTON
 ============================================================ */
 
-document
-    .getElementById(
+const activityLink =
+    document.getElementById(
         "activityLink"
-    )
-    .addEventListener(
+    );
+
+
+if (activityLink) {
+
+    activityLink.addEventListener(
         "click",
         () => {
 
@@ -658,6 +874,8 @@ document
 
         }
     );
+
+}
 
 
 /* ============================================================
@@ -696,11 +914,15 @@ document
    STRUCTURE BUTTON
 ============================================================ */
 
-document
-    .getElementById(
+const firstExpenseButton =
+    document.getElementById(
         "firstExpenseButton"
-    )
-    .addEventListener(
+    );
+
+
+if (firstExpenseButton) {
+
+    firstExpenseButton.addEventListener(
         "click",
         () => {
 
@@ -711,16 +933,22 @@ document
         }
     );
 
+}
+
 
 /* ============================================================
    CHART PERIOD
 ============================================================ */
 
-document
-    .getElementById(
+const chartPeriod =
+    document.getElementById(
         "chartPeriod"
-    )
-    .addEventListener(
+    );
+
+
+if (chartPeriod) {
+
+    chartPeriod.addEventListener(
         "change",
         event => {
 
@@ -730,6 +958,8 @@ document
 
         }
     );
+
+}
 
 
 /* ============================================================
@@ -741,7 +971,8 @@ document.addEventListener(
     event => {
 
         if (
-            event.key === "Escape"
+            event.key ===
+            "Escape"
         ) {
 
             closeCardModal();
@@ -761,124 +992,3 @@ renderInventory();
 renderActivity();
 
 updateDate();
-
-// =====================================================
-// MODAL TAMBAH CARD
-// =====================================================
-
-const cardModal = document.getElementById("cardModal");
-const openCardModal = document.getElementById("openCardModal");
-const closeCardModal = document.getElementById("closeCardModal");
-const cancelCardModal = document.getElementById("cancelCardModal");
-const saveCardModal = document.getElementById("saveCardModal");
-
-
-// =====================================================
-// BUKA MODAL
-// =====================================================
-
-if (openCardModal) {
-    openCardModal.addEventListener("click", () => {
-        cardModal.classList.add("show");
-    });
-}
-
-
-// =====================================================
-// TUTUP MODAL
-// =====================================================
-
-function closeModal() {
-    if (cardModal) {
-        cardModal.classList.remove("show");
-    }
-}
-
-if (closeCardModal) {
-    closeCardModal.addEventListener("click", closeModal);
-}
-
-if (cancelCardModal) {
-    cancelCardModal.addEventListener("click", closeModal);
-}
-
-
-// =====================================================
-// KLIK AREA LUAR MODAL
-// =====================================================
-
-if (cardModal) {
-    cardModal.addEventListener("click", (event) => {
-
-        if (event.target === cardModal) {
-            closeModal();
-        }
-
-    });
-}
-
-
-// =====================================================
-// PILIH CARD
-// =====================================================
-
-const cardOptions = document.querySelectorAll(".dashboard-card-option");
-
-cardOptions.forEach((option) => {
-
-    const checkbox = option.querySelector("input[type='checkbox']");
-
-    option.addEventListener("click", (event) => {
-
-        // Jangan toggle dua kali ketika checkbox diklik
-        if (event.target.tagName !== "INPUT") {
-            checkbox.checked = !checkbox.checked;
-        }
-
-        // Tambahkan / hapus status aktif
-        if (checkbox.checked) {
-            option.classList.add("active");
-        } else {
-            option.classList.remove("active");
-        }
-
-    });
-
-});
-
-
-// =====================================================
-// SIMPAN CARD
-// =====================================================
-
-if (saveCardModal) {
-
-    saveCardModal.addEventListener("click", () => {
-
-        cardOptions.forEach((option) => {
-
-            const checkbox = option.querySelector(
-                "input[type='checkbox']"
-            );
-
-            const cardName = option.dataset.card;
-
-            const dashboardCard = document.querySelector(
-                `[data-widget="${cardName}"]`
-            );
-
-            if (!dashboardCard) return;
-
-            if (checkbox.checked) {
-                dashboardCard.style.display = "";
-            } else {
-                dashboardCard.style.display = "none";
-            }
-
-        });
-
-        closeModal();
-
-    });
-
-}
