@@ -761,3 +761,124 @@ renderInventory();
 renderActivity();
 
 updateDate();
+
+// =====================================================
+// MODAL TAMBAH CARD
+// =====================================================
+
+const cardModal = document.getElementById("cardModal");
+const openCardModal = document.getElementById("openCardModal");
+const closeCardModal = document.getElementById("closeCardModal");
+const cancelCardModal = document.getElementById("cancelCardModal");
+const saveCardModal = document.getElementById("saveCardModal");
+
+
+// =====================================================
+// BUKA MODAL
+// =====================================================
+
+if (openCardModal) {
+    openCardModal.addEventListener("click", () => {
+        cardModal.classList.add("show");
+    });
+}
+
+
+// =====================================================
+// TUTUP MODAL
+// =====================================================
+
+function closeModal() {
+    if (cardModal) {
+        cardModal.classList.remove("show");
+    }
+}
+
+if (closeCardModal) {
+    closeCardModal.addEventListener("click", closeModal);
+}
+
+if (cancelCardModal) {
+    cancelCardModal.addEventListener("click", closeModal);
+}
+
+
+// =====================================================
+// KLIK AREA LUAR MODAL
+// =====================================================
+
+if (cardModal) {
+    cardModal.addEventListener("click", (event) => {
+
+        if (event.target === cardModal) {
+            closeModal();
+        }
+
+    });
+}
+
+
+// =====================================================
+// PILIH CARD
+// =====================================================
+
+const cardOptions = document.querySelectorAll(".dashboard-card-option");
+
+cardOptions.forEach((option) => {
+
+    const checkbox = option.querySelector("input[type='checkbox']");
+
+    option.addEventListener("click", (event) => {
+
+        // Jangan toggle dua kali ketika checkbox diklik
+        if (event.target.tagName !== "INPUT") {
+            checkbox.checked = !checkbox.checked;
+        }
+
+        // Tambahkan / hapus status aktif
+        if (checkbox.checked) {
+            option.classList.add("active");
+        } else {
+            option.classList.remove("active");
+        }
+
+    });
+
+});
+
+
+// =====================================================
+// SIMPAN CARD
+// =====================================================
+
+if (saveCardModal) {
+
+    saveCardModal.addEventListener("click", () => {
+
+        cardOptions.forEach((option) => {
+
+            const checkbox = option.querySelector(
+                "input[type='checkbox']"
+            );
+
+            const cardName = option.dataset.card;
+
+            const dashboardCard = document.querySelector(
+                `[data-widget="${cardName}"]`
+            );
+
+            if (!dashboardCard) return;
+
+            if (checkbox.checked) {
+                dashboardCard.style.display = "";
+            } else {
+                dashboardCard.style.display = "none";
+            }
+
+        });
+
+        closeModal();
+
+    });
+
+}
