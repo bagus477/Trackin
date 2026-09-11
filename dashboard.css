@@ -1175,37 +1175,23 @@ body {
 
 .card-modal-overlay {
     position: fixed;
-
     inset: 0;
 
-    display: flex;
+    display: none;
+
     align-items: center;
     justify-content: center;
 
     padding: 20px;
 
     background: rgba(0, 0, 0, 0.45);
-
     backdrop-filter: blur(5px);
 
-    opacity: 0;
-    visibility: hidden;
-
-    pointer-events: none;
-
     z-index: 1000;
-
-    transition:
-        opacity 0.2s ease,
-        visibility 0.2s ease;
 }
 
 .card-modal-overlay.show {
-    opacity: 1;
-
-    visibility: visible;
-
-    pointer-events: auto;
+    display: flex;
 }
 
 
