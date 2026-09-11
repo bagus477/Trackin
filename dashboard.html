@@ -13,10 +13,7 @@
 
     <link rel="stylesheet" href="dashboard.css">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
     <link
         rel="preconnect"
@@ -34,7 +31,6 @@
 <body>
 
 <div class="app">
-
 
     <!-- =====================================================
          HEADER
@@ -100,15 +96,14 @@
             <button
                 class="top-note-button"
                 id="topNoteButton"
+                type="button"
             >
                 + Catatan
             </button>
 
-
             <span class="username">
                 yusuf
             </span>
-
 
             <div class="user-avatar">
 
@@ -124,22 +119,15 @@
     </header>
 
 
-
     <!-- =====================================================
          MAIN
     ====================================================== -->
 
     <main class="main-content">
 
-
-        <!-- =================================================
-             TOP CONTROL
-        ================================================== -->
+        <!-- TOP CONTROL -->
 
         <section class="dashboard-controls">
-
-
-            <!-- CASH -->
 
             <div class="cash-card">
 
@@ -154,18 +142,15 @@
             </div>
 
 
-
-            <!-- DATE -->
-
             <div class="date-navigation">
 
                 <button
                     class="date-arrow"
                     id="previousDate"
+                    type="button"
                 >
-                    <
+                    &lt;
                 </button>
-
 
                 <div class="date-display">
 
@@ -175,23 +160,21 @@
 
                 </div>
 
-
                 <button
                     class="date-arrow"
                     id="nextDate"
+                    type="button"
                 >
-                    >
+                    &gt;
                 </button>
 
             </div>
 
 
-
-            <!-- ADD CARD -->
-
             <button
                 class="add-card-button"
                 id="openCardModal"
+                type="button"
             >
 
                 <span class="plus">
@@ -205,17 +188,14 @@
         </section>
 
 
-
-        <!-- =================================================
-             QUICK ACTION
-        ================================================== -->
+        <!-- QUICK ACTION -->
 
         <section class="quick-actions">
-
 
             <button
                 class="quick-button"
                 data-action="barang"
+                type="button"
             >
 
                 <span class="quick-icon">
@@ -230,6 +210,7 @@
             <button
                 class="quick-button"
                 data-action="pengeluaran"
+                type="button"
             >
 
                 <span class="quick-icon">
@@ -244,6 +225,7 @@
             <button
                 class="quick-button"
                 data-action="catatan"
+                type="button"
             >
 
                 <span class="quick-icon">
@@ -254,9 +236,7 @@
 
             </button>
 
-
         </section>
-
 
 
         <!-- =================================================
@@ -265,10 +245,7 @@
 
         <section class="main-cards">
 
-
-            <!-- =============================================
-                 SALDO
-            ============================================== -->
+            <!-- SALDO -->
 
             <article class="dashboard-card balance-card">
 
@@ -283,20 +260,11 @@
 
                 <div class="balance-gauges">
 
-
-                    <!-- SALDO -->
-
                     <div class="gauge">
 
                         <div class="gauge-circle">
 
-                            <div class="gauge-scale">
-
-                                <span class="red"></span>
-                                <span class="orange"></span>
-                                <span class="green"></span>
-
-                            </div>
+                            <div class="gauge-scale"></div>
 
                             <div class="gauge-needle"></div>
 
@@ -323,20 +291,11 @@
                     </div>
 
 
-
-                    <!-- ARUS KAS -->
-
                     <div class="gauge">
 
                         <div class="gauge-circle">
 
-                            <div class="gauge-scale">
-
-                                <span class="red"></span>
-                                <span class="orange"></span>
-                                <span class="green"></span>
-
-                            </div>
+                            <div class="gauge-scale"></div>
 
                             <div class="gauge-needle"></div>
 
@@ -363,20 +322,11 @@
                     </div>
 
 
-
-                    <!-- PENGELUARAN -->
-
                     <div class="gauge">
 
                         <div class="gauge-circle">
 
-                            <div class="gauge-scale">
-
-                                <span class="red"></span>
-                                <span class="orange"></span>
-                                <span class="green"></span>
-
-                            </div>
+                            <div class="gauge-scale"></div>
 
                             <div class="gauge-needle"></div>
 
@@ -402,7 +352,6 @@
 
                     </div>
 
-
                 </div>
 
 
@@ -425,17 +374,14 @@
             </article>
 
 
-
-            <!-- =============================================
-                 TREND
-            ============================================== -->
+            <!-- TREND -->
 
             <article class="dashboard-card trend-card">
 
                 <div class="card-title trend-title">
 
                     <h3>
-                        Tren Saldo & Kebutuhan
+                        Tren Saldo &amp; Kebutuhan
                     </h3>
 
                     <select id="chartPeriod">
@@ -452,7 +398,7 @@
                             1 - 31 Juli 2025
                         </option>
 
-                        <option>
+                        <option selected>
                             1 - 31 Agustus 2026
                         </option>
 
@@ -465,25 +411,11 @@
 
                     <div class="chart-labels">
 
-                        <span>
-                            Rp 100rb
-                        </span>
-
-                        <span>
-                            Rp 50rb
-                        </span>
-
-                        <span>
-                            Rp 0
-                        </span>
-
-                        <span>
-                            -Rp 50rb
-                        </span>
-
-                        <span>
-                            -Rp 100rb
-                        </span>
+                        <span>Rp 100rb</span>
+                        <span>Rp 50rb</span>
+                        <span>Rp 0</span>
+                        <span>-Rp 50rb</span>
+                        <span>-Rp 100rb</span>
 
                     </div>
 
@@ -522,25 +454,11 @@
 
                         <div class="chart-dates">
 
-                            <span>
-                                1 Mei
-                            </span>
-
-                            <span>
-                                8 Mei
-                            </span>
-
-                            <span>
-                                15 Mei
-                            </span>
-
-                            <span>
-                                22 Mei
-                            </span>
-
-                            <span>
-                                31 Mei
-                            </span>
+                            <span>1 Mei</span>
+                            <span>8 Mei</span>
+                            <span>15 Mei</span>
+                            <span>22 Mei</span>
+                            <span>31 Mei</span>
 
                         </div>
 
@@ -560,10 +478,7 @@
             </article>
 
 
-
-            <!-- =============================================
-                 STRUCTURE
-            ============================================== -->
+            <!-- STRUCTURE -->
 
             <article class="dashboard-card structure-card">
 
@@ -575,11 +490,11 @@
 
                     <div class="card-tools">
 
-                        <button>
+                        <button type="button">
                             ⊞
                         </button>
 
-                        <button>
+                        <button type="button">
                             ♙
                         </button>
 
@@ -601,6 +516,7 @@
                     <button
                         class="small-green-button"
                         id="firstExpenseButton"
+                        type="button"
                     >
                         + Tambah Data Pertama Anda
                     </button>
@@ -609,9 +525,7 @@
 
             </article>
 
-
         </section>
-
 
 
         <!-- =================================================
@@ -627,12 +541,12 @@
             <button
                 class="widget-plus"
                 id="openWidgetModal"
+                type="button"
             >
                 +
             </button>
 
         </div>
-
 
 
         <!-- =================================================
@@ -641,13 +555,9 @@
 
         <section class="widgets-grid">
 
-
-            <!-- =============================================
-                 LEFT COLUMN
-            ============================================== -->
+            <!-- LEFT -->
 
             <div class="widget-column left-widget-column">
-
 
                 <!-- TAGIHAN -->
 
@@ -701,12 +611,12 @@
                     <button
                         class="detail-link"
                         data-message="Detail tagihan Kost September"
+                        type="button"
                     >
                         Lihat Detail
                     </button>
 
                 </article>
-
 
 
                 <!-- INVENTARIS -->
@@ -736,14 +646,13 @@
                     <div
                         class="inventory-list"
                         id="inventoryList"
-                    >
-
-                    </div>
+                    ></div>
 
 
                     <button
                         class="detail-link"
                         id="inventoryLink"
+                        type="button"
                     >
                         Lihat Inventaris →
                     </button>
@@ -753,13 +662,9 @@
             </div>
 
 
-
-            <!-- =============================================
-                 RIGHT COLUMN
-            ============================================== -->
+            <!-- RIGHT -->
 
             <div class="widget-column right-widget-column">
-
 
                 <!-- AKTIVITAS -->
 
@@ -788,14 +693,13 @@
                     <div
                         class="activity-list"
                         id="activityList"
-                    >
-
-                    </div>
+                    ></div>
 
 
                     <button
                         class="detail-link"
                         id="activityLink"
+                        type="button"
                     >
                         Lihat Semua →
                     </button>
@@ -803,11 +707,9 @@
                 </article>
 
 
-
-                <!-- BOTTOM RIGHT -->
+                <!-- BOTTOM -->
 
                 <div class="bottom-widgets">
-
 
                     <!-- PENGELUARAN -->
 
@@ -839,7 +741,6 @@
                     </article>
 
 
-
                     <!-- KATEGORI -->
 
                     <article
@@ -855,22 +756,17 @@
                         <div class="category-item">
 
                             <div>
-
-                                <span>
-                                    Kost
-                                </span>
-
-                                <strong>
-                                    Rp500.000
-                                </strong>
-
+                                <span>Kost</span>
+                                <strong>Rp500.000</strong>
                             </div>
 
                             <div class="progress">
+
                                 <span
                                     style="width:100%"
                                     class="purple-progress"
                                 ></span>
+
                             </div>
 
                         </div>
@@ -879,22 +775,17 @@
                         <div class="category-item">
 
                             <div>
-
-                                <span>
-                                    WiFi
-                                </span>
-
-                                <strong>
-                                    Rp150.000
-                                </strong>
-
+                                <span>WiFi</span>
+                                <strong>Rp150.000</strong>
                             </div>
 
                             <div class="progress">
+
                                 <span
                                     style="width:65%"
                                     class="cyan-progress"
                                 ></span>
+
                             </div>
 
                         </div>
@@ -903,22 +794,17 @@
                         <div class="category-item">
 
                             <div>
-
-                                <span>
-                                    Listrik
-                                </span>
-
-                                <strong>
-                                    Rp100.000
-                                </strong>
-
+                                <span>Listrik</span>
+                                <strong>Rp100.000</strong>
                             </div>
 
                             <div class="progress">
+
                                 <span
                                     style="width:50%"
                                     class="yellow-progress"
                                 ></span>
+
                             </div>
 
                         </div>
@@ -936,30 +822,44 @@
 </div>
 
 
-
-<!-- ==============================
+<!-- =========================================================
      MODAL TAMBAH CARD
-================================ -->
+========================================================== -->
 
-<div id="cardModal" class="card-modal-overlay">
+<div
+    id="cardModal"
+    class="card-modal-overlay"
+>
 
-    <div class="card-modal">
+    <div
+        class="card-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="cardModalTitle"
+    >
 
         <!-- HEADER -->
+
         <div class="card-modal-header">
 
             <div class="card-modal-title">
 
-                <span class="card-plus-icon">+</span>
+                <span class="card-plus-icon">
+                    +
+                </span>
 
-                <span>Tambah Card</span>
+                <span id="cardModalTitle">
+                    Tambah Card
+                </span>
 
             </div>
+
 
             <button
                 class="card-modal-close"
                 id="closeCardModal"
                 type="button"
+                aria-label="Tutup"
             >
                 ×
             </button>
@@ -967,24 +867,29 @@
         </div>
 
 
-        <!-- CONTENT -->
+        <!-- BODY -->
+
         <div class="card-modal-body">
 
-
             <!-- TAGIHAN -->
+
             <div
                 class="dashboard-card-option active"
                 data-card="tagihan"
             >
 
                 <div class="card-option-check">
+
                     <input
                         type="checkbox"
                         id="cardTagihan"
                         checked
                     >
 
-                    <span class="fake-checkbox">✓</span>
+                    <span class="fake-checkbox">
+                        ✓
+                    </span>
+
                 </div>
 
 
@@ -1008,8 +913,8 @@
             </div>
 
 
-
             <!-- INVENTARIS -->
+
             <div
                 class="dashboard-card-option active"
                 data-card="inventaris"
@@ -1023,7 +928,9 @@
                         checked
                     >
 
-                    <span class="fake-checkbox">✓</span>
+                    <span class="fake-checkbox">
+                        ✓
+                    </span>
 
                 </div>
 
@@ -1048,8 +955,8 @@
             </div>
 
 
-
             <!-- AKTIVITAS -->
+
             <div
                 class="dashboard-card-option active"
                 data-card="aktivitas"
@@ -1063,7 +970,9 @@
                         checked
                     >
 
-                    <span class="fake-checkbox">✓</span>
+                    <span class="fake-checkbox">
+                        ✓
+                    </span>
 
                 </div>
 
@@ -1088,8 +997,8 @@
             </div>
 
 
-
             <!-- PENGELUARAN -->
+
             <div
                 class="dashboard-card-option"
                 data-card="pengeluaran"
@@ -1102,7 +1011,9 @@
                         id="cardPengeluaran"
                     >
 
-                    <span class="fake-checkbox">✓</span>
+                    <span class="fake-checkbox">
+                        ✓
+                    </span>
 
                 </div>
 
@@ -1127,8 +1038,8 @@
             </div>
 
 
-
             <!-- KATEGORI -->
+
             <div
                 class="dashboard-card-option"
                 data-card="kategori"
@@ -1141,7 +1052,9 @@
                         id="cardKategori"
                     >
 
-                    <span class="fake-checkbox">✓</span>
+                    <span class="fake-checkbox">
+                        ✓
+                    </span>
 
                 </div>
 
@@ -1165,11 +1078,11 @@
 
             </div>
 
-
         </div>
 
 
         <!-- FOOTER -->
+
         <div class="card-modal-footer">
 
             <button
@@ -1179,6 +1092,7 @@
             >
                 Batal
             </button>
+
 
             <button
                 type="button"
@@ -1193,6 +1107,14 @@
     </div>
 
 </div>
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
 
 
 <script src="dashboard.js"></script>
