@@ -1,6 +1,4 @@
-/* ============================================================
-   TRACK IN - DASHBOARD JAVASCRIPT
-============================================================ */
+"use strict";
 
 
 /* ============================================================
@@ -8,60 +6,43 @@
 ============================================================ */
 
 const inventoryData = [
-
-    {
-        name: "Rice Cooker",
-        user: "Yusuf",
-        date: "12 Agst",
-        price: "Rp450.000"
-    },
-
     {
         name: "Kipas Angin",
-        user: "Bagus",
+        owner: "Bagus",
         date: "15 Agst",
         price: "Rp300.000"
     },
-
     {
         name: "Galon",
-        user: "Andi",
+        owner: "Andi",
         date: "18 Agst",
         price: "Rp20.000"
     }
-
 ];
 
 
 const activityData = [
-
     {
-        name: "Yusuf",
         initial: "Y",
-        text: "menambahkan 'Galon'",
-        amount: "Rp20.000",
-        time: "Hari ini",
-        color: "green"
+        name: "Yusuf",
+        text: "menambahkan barang baru",
+        time: "12 Agst",
+        type: "green"
     },
-
     {
-        name: "Bagus",
         initial: "B",
-        text: "menambahkan 'Kipas Angin'",
-        amount: "Rp300.000",
-        time: "Kemarin",
-        color: "blue"
+        name: "Bagus",
+        text: "menambahkan pengeluaran",
+        time: "15 Agst",
+        type: "blue"
     },
-
     {
-        name: "Andi",
         initial: "A",
-        text: "membayar 'WiFi'",
-        amount: "Rp100.000",
-        time: "2 hari lalu",
-        color: "yellow"
+        name: "Andi",
+        text: "menambahkan inventaris",
+        time: "18 Agst",
+        type: "yellow"
     }
-
 ];
 
 
@@ -81,6 +62,21 @@ const toast =
 const cardModal =
     document.getElementById("cardModal");
 
+const openCardModalButton =
+    document.getElementById("openCardModal");
+
+const openWidgetModalButton =
+    document.getElementById("openWidgetModal");
+
+const closeCardModalButton =
+    document.getElementById("closeCardModal");
+
+const cancelCardModalButton =
+    document.getElementById("cancelCardModal");
+
+const saveCardModalButton =
+    document.getElementById("saveCardModal");
+
 
 /* ============================================================
    RENDER INVENTORY
@@ -88,42 +84,32 @@ const cardModal =
 
 function renderInventory() {
 
-    if (!inventoryList) {
-        return;
-    }
+    if (!inventoryList) return;
 
     inventoryList.innerHTML = "";
-
 
     inventoryData.forEach(item => {
 
         const element =
             document.createElement("div");
 
-        element.className =
-            "inventory-item";
-
+        element.className = "inventory-item";
 
         element.innerHTML = `
-
             <div>
-
                 <span class="inventory-name">
                     ${item.name}
                 </span>
 
                 <span class="inventory-meta">
-                    ${item.user} • ${item.date}
+                    ${item.owner} • ${item.date}
                 </span>
-
             </div>
 
             <span class="inventory-price">
                 ${item.price}
             </span>
-
         `;
-
 
         inventoryList.appendChild(element);
 
@@ -138,52 +124,33 @@ function renderInventory() {
 
 function renderActivity() {
 
-    if (!activityList) {
-        return;
-    }
+    if (!activityList) return;
 
     activityList.innerHTML = "";
 
-
-    activityData.forEach(activity => {
+    activityData.forEach(item => {
 
         const element =
             document.createElement("div");
 
-        element.className =
-            "activity-item";
-
+        element.className = "activity-item";
 
         element.innerHTML = `
-
-            <div class="
-                activity-avatar
-                ${activity.color}
-            ">
-                ${activity.initial}
+            <div class="activity-avatar ${item.type}">
+                ${item.initial}
             </div>
-
 
             <div class="activity-text">
 
-                <strong>
-                    ${activity.name}
-                </strong>
-
-                ${activity.text}
-
-                <b>
-                    ${activity.amount}
-                </b>
+                <strong>${item.name}</strong>
+                ${item.text}
 
                 <span class="activity-time">
-                    ${activity.time}
+                    ${item.time}
                 </span>
 
             </div>
-
         `;
-
 
         activityList.appendChild(element);
 
@@ -196,35 +163,24 @@ function renderActivity() {
    TOAST
 ============================================================ */
 
-let toastTimer;
+let toastTimer = null;
 
 
 function showToast(message) {
 
-    if (!toast) {
-        return;
-    }
+    if (!toast) return;
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
 
     clearTimeout(toastTimer);
 
+    toastTimer = setTimeout(() => {
 
-    toast.textContent =
-        message;
+        toast.classList.remove("show");
 
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    toastTimer =
-        setTimeout(() => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 2500);
+    }, 2500);
 
 }
 
@@ -234,80 +190,35 @@ function showToast(message) {
 ============================================================ */
 
 const navItems =
-    document.querySelectorAll(
-        ".nav-item"
-    );
+    document.querySelectorAll(".nav-item");
 
 
 navItems.forEach(item => {
 
-    item.addEventListener(
-        "click",
-        function(event) {
+    item.addEventListener("click", event => {
 
-            event.preventDefault();
+        event.preventDefault();
 
+        navItems.forEach(nav => {
 
-            navItems.forEach(nav => {
+            nav.classList.remove("active");
 
-                nav.classList.remove(
-                    "active"
-                );
+        });
 
-            });
+        item.classList.add("active");
 
+        const page =
+            item.dataset.page;
 
-            this.classList.add(
-                "active"
+        if (page !== "dashboard") {
+
+            showToast(
+                `Halaman ${item.textContent.trim()} belum tersedia.`
             );
 
-
-            const page =
-                this.dataset.page;
-
-
-            if (page === "dashboard") {
-
-                showToast(
-                    "Dashboard dibuka"
-                );
-
-            }
-
-            else if (page === "akun") {
-
-                showToast(
-                    "Halaman Akun dipilih"
-                );
-
-            }
-
-            else if (page === "catatan") {
-
-                showToast(
-                    "Halaman Catatan dipilih"
-                );
-
-            }
-
-            else if (page === "inventaris") {
-
-                showToast(
-                    "Halaman Inventaris dipilih"
-                );
-
-            }
-
-            else if (page === "keuangan") {
-
-                showToast(
-                    "Halaman Keuangan dipilih"
-                );
-
-            }
-
         }
-    );
+
+    });
 
 });
 
@@ -317,21 +228,20 @@ navItems.forEach(item => {
 ============================================================ */
 
 const dateText =
-    document.getElementById(
-        "dateText"
-    );
+    document.getElementById("dateText");
+
+const previousDate =
+    document.getElementById("previousDate");
+
+const nextDate =
+    document.getElementById("nextDate");
 
 
 let currentDate =
-    new Date(
-        2026,
-        7,
-        17
-    );
+    new Date(2026, 7, 17);
 
 
 const monthNames = [
-
     "Januari",
     "Februari",
     "Maret",
@@ -344,41 +254,26 @@ const monthNames = [
     "Oktober",
     "November",
     "Desember"
-
 ];
 
 
 function updateDate() {
 
-    if (!dateText) {
-        return;
-    }
-
+    if (!dateText) return;
 
     const day =
         currentDate.getDate();
 
-
     const month =
-        monthNames[
-            currentDate.getMonth()
-        ];
-
+        monthNames[currentDate.getMonth()];
 
     const year =
         currentDate.getFullYear();
-
 
     dateText.textContent =
         `${day} ${month} ${year}`;
 
 }
-
-
-const previousDate =
-    document.getElementById(
-        "previousDate"
-    );
 
 
 if (previousDate) {
@@ -391,19 +286,12 @@ if (previousDate) {
                 currentDate.getDate() - 1
             );
 
-
             updateDate();
 
         }
     );
 
 }
-
-
-const nextDate =
-    document.getElementById(
-        "nextDate"
-    );
 
 
 if (nextDate) {
@@ -416,7 +304,6 @@ if (nextDate) {
                 currentDate.getDate() + 1
             );
 
-
             updateDate();
 
         }
@@ -426,67 +313,49 @@ if (nextDate) {
 
 
 /* ============================================================
-   QUICK ACTIONS
+   QUICK ACTION
 ============================================================ */
 
-document
-    .querySelectorAll(
-        ".quick-button"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const action =
-                    button.dataset.action;
+const quickButtons =
+    document.querySelectorAll(".quick-button");
 
 
-                if (
-                    action ===
-                    "barang"
-                ) {
+quickButtons.forEach(button => {
 
-                    showToast(
-                        "Form tambah barang dibuka"
-                    );
+    button.addEventListener("click", () => {
 
-                }
+        const action =
+            button.dataset.action;
 
-                else if (
-                    action ===
-                    "pengeluaran"
-                ) {
+        const messages = {
 
-                    showToast(
-                        "Form pengeluaran dibuka"
-                    );
+            barang:
+                "Menu Barang dipilih.",
 
-                }
+            pengeluaran:
+                "Menu Pengeluaran dipilih.",
 
-                else {
+            catatan:
+                "Menu Catatan dipilih."
 
-                    showToast(
-                        "Form catatan dibuka"
-                    );
+        };
 
-                }
-
-            }
+        showToast(
+            messages[action] ||
+            "Aksi dipilih."
         );
 
     });
 
+});
+
 
 /* ============================================================
-   TOP CATATAN
+   TOP NOTE
 ============================================================ */
 
 const topNoteButton =
-    document.getElementById(
-        "topNoteButton"
-    );
+    document.getElementById("topNoteButton");
 
 
 if (topNoteButton) {
@@ -496,7 +365,7 @@ if (topNoteButton) {
         () => {
 
             showToast(
-                "Membuka catatan baru..."
+                "Fitur tambah catatan dipilih."
             );
 
         }
@@ -506,59 +375,54 @@ if (topNoteButton) {
 
 
 /* ============================================================
-   CARD MODAL
+   MODAL
 ============================================================ */
 
+/*
+   PENTING:
 
-/* ------------------------------------------------------------
-   OPEN MODAL
------------------------------------------------------------- */
+   Modal TIDAK dibuka saat halaman dimuat.
+   CSS menggunakan display:none.
+   Modal hanya dibuka jika class "show" ditambahkan.
+*/
+
 
 function openCardModal() {
 
-    if (!cardModal) {
-        return;
-    }
+    if (!cardModal) return;
 
+    cardModal.classList.add("show");
 
-    cardModal.classList.add(
-        "show"
-    );
+    document.body.style.overflow = "hidden";
 
 }
 
-
-/* ------------------------------------------------------------
-   CLOSE MODAL
------------------------------------------------------------- */
 
 function closeCardModal() {
 
-    if (!cardModal) {
-        return;
-    }
+    if (!cardModal) return;
 
+    cardModal.classList.remove("show");
 
-    cardModal.classList.remove(
-        "show"
-    );
+    document.body.style.overflow = "";
 
 }
 
 
-/* ------------------------------------------------------------
-   BUTTON TAMBAH CARD
------------------------------------------------------------- */
+/* Pastikan modal tertutup saat pertama kali halaman dibuka */
 
-const openCardButton =
-    document.getElementById(
-        "openCardModal"
-    );
+if (cardModal) {
+
+    cardModal.classList.remove("show");
+
+}
 
 
-if (openCardButton) {
+/* Tombol + Tambah Card */
 
-    openCardButton.addEventListener(
+if (openCardModalButton) {
+
+    openCardModalButton.addEventListener(
         "click",
         openCardModal
     );
@@ -566,19 +430,11 @@ if (openCardButton) {
 }
 
 
-/* ------------------------------------------------------------
-   BUTTON PLUS WIDGET
------------------------------------------------------------- */
+/* Tombol + pada Widget Tambahan */
 
-const openWidgetButton =
-    document.getElementById(
-        "openWidgetModal"
-    );
+if (openWidgetModalButton) {
 
-
-if (openWidgetButton) {
-
-    openWidgetButton.addEventListener(
+    openWidgetModalButton.addEventListener(
         "click",
         openCardModal
     );
@@ -586,19 +442,11 @@ if (openWidgetButton) {
 }
 
 
-/* ------------------------------------------------------------
-   BUTTON X
------------------------------------------------------------- */
+/* Tombol X */
 
-const closeCardButton =
-    document.getElementById(
-        "closeCardModal"
-    );
+if (closeCardModalButton) {
 
-
-if (closeCardButton) {
-
-    closeCardButton.addEventListener(
+    closeCardModalButton.addEventListener(
         "click",
         closeCardModal
     );
@@ -606,19 +454,11 @@ if (closeCardButton) {
 }
 
 
-/* ------------------------------------------------------------
-   BUTTON BATAL
------------------------------------------------------------- */
+/* Tombol Batal */
 
-const cancelCardButton =
-    document.getElementById(
-        "cancelCardModal"
-    );
+if (cancelCardModalButton) {
 
-
-if (cancelCardButton) {
-
-    cancelCardButton.addEventListener(
+    cancelCardModalButton.addEventListener(
         "click",
         closeCardModal
     );
@@ -626,9 +466,7 @@ if (cancelCardButton) {
 }
 
 
-/* ------------------------------------------------------------
-   KLIK AREA LUAR MODAL
------------------------------------------------------------- */
+/* Klik area hitam di luar modal */
 
 if (cardModal) {
 
@@ -637,8 +475,7 @@ if (cardModal) {
         event => {
 
             if (
-                event.target ===
-                cardModal
+                event.target === cardModal
             ) {
 
                 closeCardModal();
@@ -651,8 +488,28 @@ if (cardModal) {
 }
 
 
+/* Tombol ESC */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape" &&
+            cardModal &&
+            cardModal.classList.contains("show")
+        ) {
+
+            closeCardModal();
+
+        }
+
+    }
+);
+
+
 /* ============================================================
-   CARD OPTION
+   CARD OPTIONS
 ============================================================ */
 
 const cardOptions =
@@ -665,24 +522,34 @@ cardOptions.forEach(option => {
 
     const checkbox =
         option.querySelector(
-            "input[type='checkbox']"
+            'input[type="checkbox"]'
         );
 
+    if (!checkbox) return;
 
-    if (!checkbox) {
-        return;
+
+    function updateOption() {
+
+        option.classList.toggle(
+            "active",
+            checkbox.checked
+        );
+
     }
 
+
+    /*
+       Klik seluruh kotak card.
+    */
 
     option.addEventListener(
         "click",
         event => {
 
             /*
-             * Jika klik bagian card,
-             * tetapi bukan checkbox,
-             * ubah checkbox secara manual.
-             */
+               Kalau yang diklik bukan checkbox asli,
+               kita ubah status checkbox sendiri.
+            */
 
             if (
                 event.target !== checkbox
@@ -693,23 +560,103 @@ cardOptions.forEach(option => {
 
             }
 
-
-            updateCardOption(
-                option,
-                checkbox
-            );
+            updateOption();
 
         }
     );
 
 
+    /*
+       Jika checkbox asli diklik.
+    */
+
     checkbox.addEventListener(
         "change",
+        updateOption
+    );
+
+
+    updateOption();
+
+});
+
+
+/* ============================================================
+   SIMPAN CARD
+============================================================ */
+
+if (saveCardModalButton) {
+
+    saveCardModalButton.addEventListener(
+        "click",
         () => {
 
-            updateCardOption(
-                option,
-                checkbox
+            cardOptions.forEach(option => {
+
+                const checkbox =
+                    option.querySelector(
+                        'input[type="checkbox"]'
+                    );
+
+                if (!checkbox) return;
+
+
+                const cardName =
+                    option.dataset.card;
+
+
+                const widget =
+                    document.querySelector(
+                        `[data-widget="${cardName}"]`
+                    );
+
+
+                if (!widget) return;
+
+
+                if (checkbox.checked) {
+
+                    widget.style.display = "";
+
+                } else {
+
+                    widget.style.display = "none";
+
+                }
+
+            });
+
+
+            closeCardModal();
+
+            showToast(
+                "Card berhasil diperbarui."
+            );
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   DETAIL BUTTONS
+============================================================ */
+
+const detailButtons =
+    document.querySelectorAll(
+        ".detail-link[data-message]"
+    );
+
+
+detailButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            showToast(
+                button.dataset.message
             );
 
         }
@@ -718,122 +665,8 @@ cardOptions.forEach(option => {
 });
 
 
-/* ------------------------------------------------------------
-   UPDATE TAMPILAN PILIHAN CARD
------------------------------------------------------------- */
-
-function updateCardOption(
-    option,
-    checkbox
-) {
-
-    if (
-        checkbox.checked
-    ) {
-
-        option.classList.add(
-            "active"
-        );
-
-    }
-
-    else {
-
-        option.classList.remove(
-            "active"
-        );
-
-    }
-
-}
-
-
-/* ============================================================
-   SAVE CARD
-============================================================ */
-
-const saveCardButton =
-    document.getElementById(
-        "saveCardModal"
-    );
-
-
-if (saveCardButton) {
-
-    saveCardButton.addEventListener(
-        "click",
-        () => {
-
-            cardOptions.forEach(
-                option => {
-
-                    const checkbox =
-                        option.querySelector(
-                            "input[type='checkbox']"
-                        );
-
-
-                    if (!checkbox) {
-                        return;
-                    }
-
-
-                    const cardName =
-                        option.dataset.card;
-
-
-                    const widget =
-                        document.querySelector(
-                            `[data-widget="${cardName}"]`
-                        );
-
-
-                    if (!widget) {
-                        return;
-                    }
-
-
-                    if (
-                        checkbox.checked
-                    ) {
-
-                        widget.style.display =
-                            "";
-
-                    }
-
-                    else {
-
-                        widget.style.display =
-                            "none";
-
-                    }
-
-                }
-            );
-
-
-            closeCardModal();
-
-
-            showToast(
-                "Card dashboard berhasil diperbarui"
-            );
-
-        }
-    );
-
-}
-
-
-/* ============================================================
-   INVENTORY BUTTON
-============================================================ */
-
 const inventoryLink =
-    document.getElementById(
-        "inventoryLink"
-    );
+    document.getElementById("inventoryLink");
 
 
 if (inventoryLink) {
@@ -843,7 +676,7 @@ if (inventoryLink) {
         () => {
 
             showToast(
-                "Membuka halaman inventaris..."
+                "Halaman inventaris dipilih."
             );
 
         }
@@ -852,14 +685,8 @@ if (inventoryLink) {
 }
 
 
-/* ============================================================
-   ACTIVITY BUTTON
-============================================================ */
-
 const activityLink =
-    document.getElementById(
-        "activityLink"
-    );
+    document.getElementById("activityLink");
 
 
 if (activityLink) {
@@ -869,7 +696,7 @@ if (activityLink) {
         () => {
 
             showToast(
-                "Menampilkan seluruh aktivitas..."
+                "Semua aktivitas dipilih."
             );
 
         }
@@ -879,39 +706,7 @@ if (activityLink) {
 
 
 /* ============================================================
-   BILL DETAIL
-============================================================ */
-
-document
-    .querySelectorAll(
-        ".detail-link"
-    )
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const message =
-                    button.dataset.message;
-
-
-                if (message) {
-
-                    showToast(
-                        message
-                    );
-
-                }
-
-            }
-        );
-
-    });
-
-
-/* ============================================================
-   STRUCTURE BUTTON
+   FIRST EXPENSE
 ============================================================ */
 
 const firstExpenseButton =
@@ -927,7 +722,7 @@ if (firstExpenseButton) {
         () => {
 
             showToast(
-                "Form pengeluaran pertama dibuka"
+                "Tambah data pengeluaran dipilih."
             );
 
         }
@@ -950,10 +745,10 @@ if (chartPeriod) {
 
     chartPeriod.addEventListener(
         "change",
-        event => {
+        () => {
 
             showToast(
-                `Periode ${event.target.value} dipilih`
+                `Periode ${chartPeriod.value} dipilih.`
             );
 
         }
@@ -963,28 +758,7 @@ if (chartPeriod) {
 
 
 /* ============================================================
-   KEYBOARD ESC
-============================================================ */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key ===
-            "Escape"
-        ) {
-
-            closeCardModal();
-
-        }
-
-    }
-);
-
-
-/* ============================================================
-   INITIALIZE
+   INITIALIZATION
 ============================================================ */
 
 renderInventory();
