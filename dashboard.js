@@ -378,13 +378,7 @@ if (topNoteButton) {
    MODAL
 ============================================================ */
 function openCardModal() {
-
-    if (!cardModal) return;
-
-    cardModal.classList.add("show");
-
-    document.body.style.overflow = "hidden";
-
+    return;
 }
 
 
