@@ -377,16 +377,6 @@ if (topNoteButton) {
 /* ============================================================
    MODAL
 ============================================================ */
-
-/*
-   PENTING:
-
-   Modal TIDAK dibuka saat halaman dimuat.
-   CSS menggunakan display:none.
-   Modal hanya dibuka jika class "show" ditambahkan.
-*/
-
-
 function openCardModal() {
 
     if (!cardModal) return;
